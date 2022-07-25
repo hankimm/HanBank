@@ -6,8 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Fri Jul 22 18:57:34 2022
+
+# Make data base, printed on Mon Jul 25 18:46:02 2022
 
 # Variables
 
@@ -50,7 +53,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.FVFzXiF7QR/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.sYSYF2VhJe/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -142,7 +145,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 564
+VSCODE_PID = 4689
 # variable set hash-table stats:
 # Load=66/1024=6%, Rehash=0, Collisions=2/90=2%
 
@@ -152,9 +155,9 @@ VSCODE_PID = 564
 
 # Directories
 
-# . (device 16777220, inode 46329497): 11 files, no impossibilities.
+# . (device 16777222, inode 46329497): 13 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -180,7 +183,7 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -203,11 +206,20 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 18:44:55
+#  Last modified 2022-07-22 19:16:27
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+test:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 25):
+	go test -v -cover ./...
+	
 
 createdb:
 #  Phony target (prerequisite of .PHONY).
@@ -260,7 +272,7 @@ migratedown:
 	
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/30=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/32=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -272,8 +284,6 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Jul 22 18:57:34 2022
+# Finished Make data base on Mon Jul 25 18:46:02 2022
 
  
-make: *** No rule to make target `all'.  Stop.
-
