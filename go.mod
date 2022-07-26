@@ -2,11 +2,7 @@ module github.com/hankimm/han_bank
 
 go 1.18
 
-require (
-	github.com/golang/mock v1.6.0
-	github.com/google/uuid v1.3.0
-	github.com/lib/pq v1.10.6
-)
+require github.com/lib/pq v1.10.6
 
 require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
