@@ -2,12 +2,11 @@ package api
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	db "github.com/hankimm/han_bank/db/sqlc"
-	_ "github.com/lib/pq"
+	"github.com/lib/pq"
 )
 
 type createAccountRequest struct {
