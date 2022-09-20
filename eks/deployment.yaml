@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: han-bank-api-deployment
+  labels:
+    app: han-bank-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: han-bank-api
+  template:
+    metadata:
+      labels:
+        app: han-bank-api
+    spec:
+      containers:
+      - name: han-bank-api
+        image: 843842551818.dkr.ecr.us-east-2.amazonaws.com/hanbank:3990a59c1a508244de9d3cb1c5fe51e8e296df35
+        ports:
+        - containerPort: 8080
