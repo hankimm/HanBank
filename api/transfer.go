@@ -2,13 +2,14 @@ package api
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	db "github.com/hankimm/han_bank/db/sqlc"
+	"github.com/hankimm/han_bank/token"
 )
-
 
 type transferRequest struct {
 	FromAccountID int64  `json:"from_account_id" binding:"required,min=1"`
@@ -24,14 +25,22 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 		return
 	}
 
-	// if !server.validAccount(ctx, req.FromAccountID, req.Currency) {
-	// 	return
-	// }
+	fromAccount, valid := server.validAccount(ctx, req.FromAccountID, req.Currency)
+	if !valid {
+		return
+	}
 
-	// if !server.validAccount(ctx, req.ToAccountID, req.Currency) {
-	// 	return
-	// }
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if fromAccount.Owner != authPayload.Username {
+		err := errors.New("from account doesn't belong to the authenticated user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		return
+	}
 
+	_, valid = server.validAccount(ctx, req.ToAccountID, req.Currency)
+	if !valid {
+		return
+	}
 
 	arg := db.TransferTxParams{
 		FromAccountID: req.FromAccountID,
