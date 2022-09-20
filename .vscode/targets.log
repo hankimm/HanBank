@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Jul 25 18:46:02 2022
+# Make data base, printed on Mon Sep 19 17:02:49 2022
 
 # Variables
 
@@ -38,12 +38,13 @@ MAKEFILE_LIST :=  Makefile
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
+ 
 # environment
 VSCODE_CWD = /
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # environment
-PATH = /Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/hankim/go/bin
+PATH = /Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/hankim/go/bin:/Users/hankim/go/pkg/mod/github.com/golang/mock@v1.6.0/mockgen:/Users/hankim/go/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -53,7 +54,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.sYSYF2VhJe/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ZHSgMIIJXF/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -67,7 +68,7 @@ HOME = /Users/hankim
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/hankim/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = /Users/hankim/Library/Application Support/Code/CachedData/74b1f979648cc44d385a2286793c226e611f59e7
 # environment
 LOGNAME = hankim
 # environment
@@ -107,7 +108,7 @@ TMPDIR = /var/folders/r3/5s3pm__n15z9362350q038r40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/hankim/Library/Application Support/Code/1.69.2-main.sock
+VSCODE_IPC_HOOK = /Users/hankim/Library/Application Support/Code/1.71.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -117,7 +118,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.46284802.46284808
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.50938829.50938835
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -145,7 +146,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 4689
+VSCODE_PID = 59198
 # variable set hash-table stats:
 # Load=66/1024=6%, Rehash=0, Collisions=2/90=2%
 
@@ -155,9 +156,9 @@ VSCODE_PID = 4689
 
 # Directories
 
-# . (device 16777222, inode 46329497): 13 files, no impossibilities.
+# . (device 16777220, inode 46329497): 18 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -171,7 +172,7 @@ postgres:
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 4):
-	docker run --name postgres -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14
+	docker run --name postgres --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14
 	
 
 # Not a target:
@@ -183,7 +184,17 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
+ 
+migratedown1:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 25):
+	migrate -path db/migration -database "$(DB_URL)" -verbose down 1
+	
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock migratedown1 migrateup1
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -193,7 +204,7 @@ sqlc:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 22):
+#  commands to execute (from `Makefile', line 28):
 	sqlc generate
 	
 
@@ -206,18 +217,27 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 19:16:27
+#  Last modified 2022-08-02 19:36:20
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+server:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 34):
+	go run main.go
+	
 
 test:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 25):
+#  commands to execute (from `Makefile', line 31):
 	go test -v -cover ./...
 	
 
@@ -262,17 +282,35 @@ mysql:
 	docker run --name mysql8 -p 3306:3306  -e MYSQL_ROOT_PASSWORD=secret -d mysql:8
 	
 
-migratedown:
+migrateup1:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 19):
+	migrate -path db/migration -database "$(DB_URL)" -verbose up 1
+	
+
+migratedown:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 22):
 	migrate -path db/migration -database "$(DB_URL)" -verbose down
 	
 
+mock:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 37):
+	mockgen -package mockdb  -destination db/mock/store.go  github.com/hankimm/han_bank/db/sqlc Store
+	
+
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/32=0%
+# Load=17/1024=2%, Rehash=0, Collisions=0/40=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -284,6 +322,6 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Jul 25 18:46:02 2022
+# Finished Make data base on Mon Sep 19 17:02:49 2022
 
  
