@@ -5,7 +5,7 @@ metadata:
   labels:
     app: han-bank-api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: han-bank-api
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: han-bank-api
-        image: 843842551818.dkr.ecr.us-east-2.amazonaws.com/hanbank:3990a59c1a508244de9d3cb1c5fe51e8e296df35
+        image: 843842551818.dkr.ecr.us-east-2.amazonaws.com/hanbank:7ddb3078b1feeb7a25375346250f7bb781c139b7
         ports:
         - containerPort: 8080
