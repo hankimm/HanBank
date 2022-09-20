@@ -1,4 +1,4 @@
-DB_URL=postgresql://root:secret@localhost:5432/han_bank?sslmode=disable
+DB_URL=postgresql://root:GABd4zTEvHL7qa7DdXFm@han-bank.cluck0qjgzia.us-east-2.rds.amazonaws.com:5432/han_bank
 
 network:
 	docker network create bank-network
